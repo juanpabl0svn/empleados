@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize("a", "juan", "1234", {
+const sequelize = new Sequelize("a", "juan", "1234", {
   dialect: "mssql",
   server: "127.0.0.1",
   port: "53972",
