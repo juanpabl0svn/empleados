@@ -42,7 +42,7 @@ export default function LogIn() {
           </article> */}
           <button
             type="submit"
-            className="bg-[#6ac72c] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
+            className="bg-[#0e4b0f] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
           >
             Ingresar
           </button>

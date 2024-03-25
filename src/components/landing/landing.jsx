@@ -1,5 +1,5 @@
-import Header from "../global/header";
+import Body from "./body";
 
 export default function Landing() {
-  return;
+  return <Body />;
 }

@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   token: "",
   isLoggedIn: false,
   route: window.location.pathname.split("/")[2] ?? "",
+  employees: null,
 };
 
 const AuthContext = createContext(INITIAL_STATE);
