@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex pl-5 justify-between items-center bg-green-700/30 text-white h-20 font-Monserrat">
+    <header className="flex pl-5 justify-between items-center bg-green-700/30 text-white h-20 font-Monserrat relative">
       <img
         src="/contraloria-imagen.png"
         alt="logo"
