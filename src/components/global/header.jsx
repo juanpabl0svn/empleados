@@ -37,7 +37,7 @@ export default function Header() {
             route == "buscar" ? "bg-green-700/30" : `hover:bg-green-500/30`
           }
         >
-          Buscar
+          Permisos
         </span>
         <span
           id="1"

@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("a", "juan", "1234", {
+export const sequelize = new Sequelize("a", "juan", "1234", {
   dialect: "mssql",
   server: "127.0.0.1",
   port: "53972",
@@ -56,7 +56,7 @@ export const Empleado = sequelize.define(
   }
 );
 
-const Permisos = sequelize.define(
+export const Permisos = sequelize.define(
   "dbo.empleado_permiso",
   {
     id_permiso: {
@@ -87,6 +87,7 @@ const Permisos = sequelize.define(
     fechar: {
       type: Sequelize.DATE,
       allowNull: false,
+      defaultValue: Sequelize.NOW,
     },
   },
   {
@@ -95,3 +96,15 @@ const Permisos = sequelize.define(
     timestamps: false,
   }
 );
+
+Empleado.hasMany(Permisos, {
+  foreignKey: "cedula",
+  sourceKey: "cedula",
+  as: "permisos",
+});
+
+Permisos.belongsTo(Empleado, {
+  foreignKey: "cedula",
+  targetKey: "cedula",
+  as: "empleado",
+});

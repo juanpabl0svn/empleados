@@ -19,7 +19,6 @@ export default function useQuery(endpoint, method = "GET") {
         response = await POST(endpoint, body);
       }
 
-
       setData(response.data);
     } catch (error) {
       setError(error);
