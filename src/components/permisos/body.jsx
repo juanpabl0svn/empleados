@@ -12,8 +12,9 @@ import {
 
 import { useEffect, useState } from "react";
 import useFilter from "@/hooks/useFilter";
-import User from "../landing/user/user";
 import Modal from "../global/modal";
+import TableSkeleton from "../global/table-skeleton";
+import Permission from "./permission/permission";
 
 // function filterFunction(data, filter) {
 //   return [...data].filter((employee) => {
@@ -30,10 +31,9 @@ export default function Permisos() {
 
   const [fetchData, data, loading, error] = useQuery("/permisos", "GET");
 
-  const [permiss, setPermiss] = useState(null);
+  const [permission, setPermission] = useState(null);
 
   const filterData = useFilter(data, filter);
-
 
   useEffect(() => {
     fetchData();
@@ -47,11 +47,11 @@ export default function Permisos() {
 
   return (
     <>
-      {/* {user != undefined && (
-        <Modal onClick={() => setUser(null)}>
-          <User {...user} />
+      {permission != undefined && (
+        <Modal onClick={() => setPermission(null)}>
+          <Permission {...permission} />
         </Modal>
-      )} */}
+      )}
       <main className="min-h-[calc(100dvh-6.5rem)] w-full pt-10 max-w-[1100px] mx-auto">
         <aside>
           <input
@@ -76,12 +76,12 @@ export default function Permisos() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filterData != undefined &&
+              {filterData != undefined ? (
                 filterData.map((permissions, index) => (
                   <TableRow
                     key={index}
                     className="cursor-pointer"
-                    // onClick={() => setUser(permissions.empleado)}
+                    onClick={() => setPermission(permissions)}
                   >
                     <TableCell>{permissions.empleado.imagen}</TableCell>
                     <TableCell>{permissions.empleado.cedula}</TableCell>
@@ -92,27 +92,10 @@ export default function Permisos() {
                     <TableCell>{permissions.fechai}</TableCell>
                     <TableCell>{permissions.fechaf}</TableCell>
                   </TableRow>
-                ))}
-              {(data == undefined || loading == true || error) &&
-                Array.from({ length: 10 }).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                ))
+              ) : (
+                <TableSkeleton length={6} />
+              )}
             </TableBody>
           </Table>
         </aside>

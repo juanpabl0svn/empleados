@@ -15,6 +15,9 @@ import useFilter from "@/hooks/useFilter";
 import User from "./user/user";
 import Modal from "../global/modal";
 import useSearchParams from "@/hooks/useSearchParams";
+import TableSkeleton from "../global/table-skeleton";
+
+import AddIcon from "../svg/add-icon";
 
 function filterFunction(data, filter) {
   return [...data].filter((employee) => {
@@ -29,33 +32,37 @@ function filterFunction(data, filter) {
 export default function Body() {
   const [filter, setFilter] = useState("");
 
-  // const [get, set] = useSearchParams();
+  const [get, set] = useSearchParams();
 
-  // const [fetchData, data, loading, error] = useQuery("", "GET");
+  const [fetchData, data, loading, error] = useQuery("", "GET");
 
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-  // const filterData = useFilter(data, filter, filterFunction);
+  const filterData = useFilter(data, filter, filterFunction);
 
-  // useEffect(() => {
-  //   fetchData().then((data) => {
-  //     const userParam = get("user");
-  //     if (userParam == null) return;
-  //     const userToShow = [...data].find(
-  //       (employee) => employee.cedula == userParam
-  //     );
-  //     setUser(userToShow);
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetchData().then((data) => {
+      const userParam = get("user");
+      if (userParam == null) return;
+      const userToShow = [...data].find(
+        (employee) => employee.cedula == userParam
+      );
+      setUser(userToShow);
+    });
+  }, []);
 
   return (
     <>
-      {/* {user != undefined && (
+      {user != undefined && (
         <Modal onClick={() => setUser(null)}>
           <User {...user} />
         </Modal>
-      )} */}
-      <main className="min-h-[calc(100dvh-6.5rem)] w-full pt-10 max-w-[1100px] mx-auto">
+      )}
+      <main className="min-h-[calc(100dvh-6.5rem)] w-full pt-10 max-w-[1100px] mx-auto relative">
+        <AddIcon
+          className="absolute right-5 top-5 cursor-pointer"
+          onClick={() => setUser({})}
+        />
         <aside>
           <article>
             <input
@@ -71,23 +78,7 @@ export default function Body() {
             </select>
           </article>
 
-          <table className="w-[clamp(800px, 80vw,1200px)] border border-black h-[500px]"> 
-            <caption>Lista de empleados</caption>
-            <thead className="w-full">
-              <tr>
-                <th>Imagen</th>
-                <th>Cedula</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Cargo</th>
-                <th>Area</th>
-                <th>Movil</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-          {/* <Table>
+          <Table>
             <TableCaption>Lista de empleados</TableCaption>
             <TableHeader>
               <TableRow>
@@ -102,9 +93,7 @@ export default function Body() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {!error &&
-                filterData != undefined &&
-                loading == false &&
+              {filterData != null ? (
                 filterData.map((employee, index) => (
                   <TableRow
                     key={index}
@@ -121,33 +110,16 @@ export default function Body() {
                       {employee.email}
                     </TableCell>
                     <TableCell>{employee.cargo}</TableCell>
-                    <TableCell>{employee.movil}</TableCell>
                     <TableCell>{employee.area}</TableCell>
+                    <TableCell>{employee.movil}</TableCell>
                     <TableCell>{employee.estado}</TableCell>
                   </TableRow>
-                ))}
-              {(data == undefined || loading == true || error) &&
-                Array.from({ length: 10 }).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                    <TableCell>
-                      <p className="w-full h-5 bg-gray-400 rounded-xl animate-pulse"></p>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                ))
+              ) : (
+                <TableSkeleton length={8} />
+              )}
             </TableBody>
-          </Table> */}
+          </Table>
         </aside>
       </main>
     </>
