@@ -30,9 +30,10 @@ export default function Permisos() {
 
   const [fetchData, data, loading, error] = useQuery("/permisos", "GET");
 
-  const [user, setUser] = useState(null);
+  const [permiss, setPermiss] = useState(null);
 
   const filterData = useFilter(data, filter);
+
 
   useEffect(() => {
     fetchData();
@@ -68,7 +69,9 @@ export default function Permisos() {
                 <TableHead>Cedula</TableHead>
                 <TableHead className="min-w-[100px]">Nombre</TableHead>
                 <TableHead className="text-center">Permiso</TableHead>
-                <TableHead className="min-w-[100px] text-center">Inicio</TableHead>
+                <TableHead className="min-w-[100px] text-center">
+                  Inicio
+                </TableHead>
                 <TableHead className="min-w-[100px] text-center">Fin</TableHead>
               </TableRow>
             </TableHeader>
@@ -77,6 +80,7 @@ export default function Permisos() {
                 filterData.map((permissions, index) => (
                   <TableRow
                     key={index}
+                    className="cursor-pointer"
                     // onClick={() => setUser(permissions.empleado)}
                   >
                     <TableCell>{permissions.empleado.imagen}</TableCell>

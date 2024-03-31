@@ -34,7 +34,7 @@ export default function Header() {
           id="1"
           onClick={handleClick}
           className={
-            route == "buscar" ? "bg-green-700/30" : `hover:bg-green-500/30`
+            route == "permisos" ? "bg-green-700/30" : `hover:bg-green-500/30`
           }
         >
           Permisos

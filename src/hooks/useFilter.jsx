@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export default function useFilter(
   data,
   filter,
-  filterFunction = ( )=> true,
+  filterFunction = (data, ...rest) => data,
   timer = 800
 ) {
   const [filteredData, setFilteredData] = useState(data);
@@ -11,7 +11,6 @@ export default function useFilter(
   useEffect(() => {
     const timeOut = setTimeout(() => {
       const result = filter == "" ? data : filterFunction(data, filter);
-      console.log(result)
       setFilteredData(result);
     }, timer);
 

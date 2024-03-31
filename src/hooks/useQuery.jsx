@@ -20,6 +20,7 @@ export default function useQuery(endpoint, method = "GET") {
       }
 
       setData(response.data);
+      return response.data;
     } catch (error) {
       setError(error);
     } finally {

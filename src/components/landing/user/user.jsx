@@ -1,6 +1,17 @@
+import EditIcon from "@/components/svg/edit-icon";
+import { useState } from "react";
+
 export default function User({ nombre, cedula, email, estado, movil }) {
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
-    <aside className="product-card w-[clamp(350px,50vw,700px)] h-[clamp(450px,40vh,600px)] rounded-md shadow-xl overflow-hidden  snap-start shrink-0 py-8 px-6 bg-green-600 flex flex-col items-center justify-center gap-3 transition-all duration-300 group">
+    <aside className="w-[clamp(350px,50vw,700px)] h-[clamp(450px,40vh,600px)] rounded-md shadow-xl overflow-hidden  snap-start shrink-0 py-8 px-6 bg-green-600 flex flex-col items-center justify-center gap-3 transition-all duration-300 relative">
+      <EditIcon
+        className={`absolute right-4 top-4 ${
+          isEditing ? "bg-green-900 stroke-white" : "stroke-green-900"
+        }`}
+        onClick={() => setIsEditing(!isEditing)}
+      />
       <div className="para uppercase text-center leading-none z-40">
         <p className="text-black font-semibold text-xs font-serif">{nombre}</p>
       </div>
